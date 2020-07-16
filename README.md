@@ -1,2 +1,2 @@
-# quickgroceries
+# quickgroceries **
 During the lockdown procedure, you distinguished that a large number of the customers are utilizing the online stage to purchase food supplies and you and your friends believes it's an ideal opportunity to begin a little startup. In any case, the issue is that there are colossal players like Grofers, Swiggy in this industry and you should concoct another thought or rather a x-factor for your quickgroceries.com.
