@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,7 @@ import com.quickgroceries.product.service.ProductService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ProductController.class)
 @WithMockUser
+@WebAppConfiguration
 @ImportAutoConfiguration(RefreshAutoConfiguration.class)
 class ProductControllerTest {
 	
