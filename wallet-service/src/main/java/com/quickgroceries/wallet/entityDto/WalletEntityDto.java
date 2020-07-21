@@ -1,11 +1,11 @@
 package com.quickgroceries.wallet.entityDto;
 
-import java.util.UUID;
+
 
 public class WalletEntityDto {
 
-    private int uidpk;
-    private UUID  customerUId;
+    private long uidpk;
+    private long  customerUId;
     private double amount;
     private String currency;
 
@@ -13,26 +13,26 @@ public class WalletEntityDto {
 
     }
 
-    public WalletEntityDto(int uidpk, UUID customerUId, double amount, String currency) {
+    public WalletEntityDto(int uidpk, long customerUId, double amount, String currency) {
         this.uidpk = uidpk;
         this.customerUId = customerUId;
         this.amount = amount;
         this.currency = currency;
     }
 
-    public int getUidpk() {
+    public long getUidpk() {
         return uidpk;
     }
 
-    public void setUidpk(int uidpk) {
+    public void setUidpk(long uidpk) {
         this.uidpk = uidpk;
     }
 
-    public UUID getCustomerUId() {
+    public long getCustomerUId() {
         return customerUId;
     }
 
-    public void setCustomerUId(UUID customerUId) {
+    public void setCustomerUId(long customerUId) {
         this.customerUId = customerUId;
     }
 

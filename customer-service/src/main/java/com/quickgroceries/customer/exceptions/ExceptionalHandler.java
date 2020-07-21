@@ -11,7 +11,7 @@ public class ExceptionalHandler {
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	  public ResponseEntity<?> resourceNotFoundException(WebRequest request) {
-	    ErrorResponse errorDetails = new ErrorResponse(HttpStatus.NOT_FOUND,"Entered Value is Not Found",request.getDescription(false));
+	    ErrorResponse errorDetails = new ErrorResponse(HttpStatus.NOT_FOUND,"Invalid ID",request.getDescription(false));
 	    return new ResponseEntity<Object>(errorDetails,HttpStatus.NOT_FOUND);
 	  }
 

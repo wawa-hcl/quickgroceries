@@ -1,7 +1,6 @@
 package com.quickgroceries.wallet.entity;
 
 import java.io.Serializable;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,32 +20,26 @@ public class WalletEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private int uidpk;
+	private long uidpk;
 	
 	@Column
-	private String customerUId;
+	private int customerUId;
 	
-	@Column
-	/*
-	 * @NotNull(message = "Please enter some amount")
-	 * 
-	 * @Digits(message = "Enter only numeric value", fraction = 0, integer = 0)
-	 */
-	//@Positive(message = "credit amount should be greater than 0")
+	@Column	
+	@NotNull(message = "Please enter some amount")
+	@Digits(message = "Enter only numeric value", fraction = 0, integer = 0)
+	@Positive(message = "credit amount should be greater than 0")
 	private double amount;
 	
-	
-	
 	@Column
-	//@NotNull(message = "Please enter currency Type")
-	
+	@NotNull(message = "Please enter currency Type")
 	private String currency;
 	
 	public WalletEntity() {
 		
 	}
 
-	public WalletEntity(int uidpk, String customerUId, double amount, String currency) {
+	public WalletEntity(long uidpk, int customerUId, double amount, String currency) {
 		super();
 		this.uidpk = uidpk;
 		this.customerUId = customerUId;
@@ -54,22 +47,20 @@ public class WalletEntity implements Serializable {
 		this.currency = currency;
 	}
 
-	public int getUidpk() {
+	public long getUidpk() {
 		return uidpk;
 	}
 
-	public void setUidpk(int uidpk) {
+	public void setUidpk(long uidpk) {
 		this.uidpk = uidpk;
 	}
 
-	public String getCustomerUId() {
-		
+	public int getCustomerUId() {
 		return customerUId;
 	}
 
-	public String setCustomerUId(String customerUId) {
-		 
-		 return customerUId;
+	public void setCustomerUId(int customerUId) {
+		this.customerUId = customerUId;
 	}
 
 	public double getAmount() {
@@ -88,11 +79,17 @@ public class WalletEntity implements Serializable {
 		this.currency = currency;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "WalletEntity [uidpk=" + uidpk + ", customerUId=" + customerUId + ", amount=" + amount + ", currency="
 				+ currency + "]";
 	}
+	
+	
 	
 	
 	
