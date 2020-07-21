@@ -1,0 +1,5 @@
+FROM openjdk:8
+RUN mkdir/quickgroceries
+EXPOSE 9082
+COPY cart-service/target/cart-service-0.0.1-SNAPSHOT.jar/quickgroceries/cart-service.jar
+CMD java -jar /quickgroceries/cart-service.jar

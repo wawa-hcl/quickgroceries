@@ -40,7 +40,7 @@ public class ProductController {
 
 	@GetMapping("/products")
 	@Produces("application/json")
-	public ResponseEntity<List<ResponseDto>> getProductById(){
+	public ResponseEntity<List<ResponseDto>> getProducts(){
 		
 		List<ResponseDto> responseDto=productService.getAllProducts();
 		

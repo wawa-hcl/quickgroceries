@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.quickgroceries.cart.entity.Cart;
 import com.quickgroceries.cart.entity.CartItem;
 import com.quickgroceries.cart.entity.State;
+import com.quickgroceries.cart.exception.CartNotFoundException;
 import com.quickgroceries.cart.model.Action;
+import com.quickgroceries.cart.model.CartIdDto;
 import com.quickgroceries.cart.model.CartItemsDto;
 import com.quickgroceries.cart.model.ProductResponseDto;
 import com.quickgroceries.cart.model.RequestDto;
@@ -20,6 +22,7 @@ import com.quickgroceries.cart.repository.CartItemRepository;
 import com.quickgroceries.cart.repository.CartRepository;
 import com.quickgroceries.cart.service.CartService;
 import com.quickgroceries.cart.service.ProductServiceProxy;
+
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -46,7 +49,7 @@ public class CartServiceImpl implements CartService {
 					CartItem cartitem = new CartItem();
 					cartitem.setProductUid(requestDto.getProduct_id());
 					cartitem.setQuantity(requestDto.getQuantity());
-					//cartitem.set(cart.getCartUidpk());
+					cartitem.setCart(cart);
 					cartItemRepository.save(cartitem);
 				}
 
@@ -62,6 +65,7 @@ public class CartServiceImpl implements CartService {
 
 			cartitem.setProductUid(requestDto.getProduct_id());
 			cartitem.setQuantity(requestDto.getQuantity());
+			cartitem.setCart(cart);
 			l.add(cartitem);
 			cart.setCartItem(l);
 			cartRepository.save(cart);
@@ -96,7 +100,7 @@ public class CartServiceImpl implements CartService {
 				}
 			}
 		}
-		return 0;
+		throw new CartNotFoundException("Cart not found in database " + customerID);
 	}
 
 	
@@ -105,14 +109,20 @@ public class CartServiceImpl implements CartService {
 		Optional<Cart> dbcart = cartRepository.findByCustomerUid(customerID);
 		if(dbcart.isPresent()) {
 			Cart cart = dbcart.get();
-			List<CartItem> dbcartitem = cart.getCartItem();
-			for(CartItem ci:dbcartitem) {
-				cartItemRepository.delete(ci);
-			}
+			
+			cartRepository.delete(cart);
+			/*
+			 * List<CartItem> dbcartitem = cart.getCartItem();
+			 * 
+			 * //cartItemRepository.deleteAll(dbcartitem);
+			 * 
+			 * for(CartItem ci:dbcartitem) { cartItemRepository.deleteById(ci.getUidpk()); }
+			 */
+			 
 			return 1;
 		}
 
-		return 0;
+		throw new CartNotFoundException("Cart not found in database " + customerID);
 	}
 
 	
@@ -122,7 +132,7 @@ public class CartServiceImpl implements CartService {
 
 		ResponseDto responseDto = new ResponseDto();
 		List<CartItemsDto> cartList = new ArrayList<CartItemsDto>();
-		CartItemsDto cartItemsDto = new CartItemsDto();
+		
 
 		Optional<Cart> dbcart = cartRepository.findByCustomerUid(customerID);
 		double pamount = 0;
@@ -131,17 +141,20 @@ public class CartServiceImpl implements CartService {
 			List<CartItem> dbcartitem = cart.getCartItem();
 
 			for (CartItem ci : dbcartitem) {
-
+				CartItemsDto cartItemsDto = new CartItemsDto();
 				cartItemsDto.setProductID(ci.getProductUid());
 				cartItemsDto.setQuantity(ci.getQuantity());
+				cartList.add(cartItemsDto);
 				ProductResponseDto productResponseDto = productServiceProxy.getProductById(ci.getProductUid());
 				pamount = pamount + (ci.getQuantity() * productResponseDto.getListprice().getAmount());
-				cartList.add(cartItemsDto);
+				
 			}
-
+			responseDto.setCart_amount(pamount);
+			responseDto.setCartItems(cartList);
+			
+			
 		}
-		responseDto.setCart_amount(pamount);
-		responseDto.setCartItems(cartList);
+		
 
 		return responseDto;
 	}
@@ -152,18 +165,19 @@ public class CartServiceImpl implements CartService {
 	public List<StateCartResponseDto> getCartByState(State stateValue) {
 
 		List<StateCartResponseDto> list = new ArrayList<StateCartResponseDto>();
-		List<CartItemsDto> cartList = new ArrayList<CartItemsDto>();
-		CartItemsDto cartItemsDto = new CartItemsDto();
+		
+		
 
 		cartRepository.findByState(stateValue).forEach(lcart -> {
 			StateCartResponseDto stateCartResponseDto = new StateCartResponseDto();
 			double pamount = 0;
-
+			List<CartItemsDto> cartList = new ArrayList<CartItemsDto>();
+			
 			stateCartResponseDto.setCartID(lcart.getCartUidpk());
 			stateCartResponseDto.setCustomerID(lcart.getCustomerUid());
 			List<CartItem> lcartItem = lcart.getCartItem();
 			for (CartItem ci : lcartItem) {
-
+				CartItemsDto cartItemsDto = new CartItemsDto();
 				cartItemsDto.setProductID(ci.getProductUid());
 				cartItemsDto.setQuantity(ci.getQuantity());
 				ProductResponseDto productResponseDto = productServiceProxy.getProductById(ci.getProductUid());
@@ -184,8 +198,8 @@ public class CartServiceImpl implements CartService {
 	
 	
 	@Override
-	public int updateCartStateByIds(State stateValue, long[] cartIds) {
-		long[] ids = cartIds;
+	public int updateCartStateByIds(State stateValue, CartIdDto cartIdDto) {
+		Long[] ids = cartIdDto.getCartIds();
 
 		for (long i : ids) {
 			Optional<Cart> ocart = cartRepository.findById(i);
