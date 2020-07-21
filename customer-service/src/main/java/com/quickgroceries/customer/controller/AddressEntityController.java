@@ -22,14 +22,12 @@ public class AddressEntityController {
 	
 	@PostMapping("/customerAddress")
 	public ResponseEntity<AddressEntity> addAddress(@RequestBody AddressEntity addressEntity){
-		
 		AddressEntity customerAddress = addressEntityService.addCustomerAddress(addressEntity);
-		
 		return new ResponseEntity<AddressEntity>(customerAddress,HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getCustomerAddress/{uidpk}")
-	public ResponseEntity<Object> getAddressById(@PathVariable int uidpk){
+	public ResponseEntity<Object> getAddressById(@PathVariable long uidpk){
 		Optional<AddressEntity> addressDetails = addressEntityService.getCustomerAddress(uidpk);
 		 return new ResponseEntity<>(addressDetails,HttpStatus.OK);
 	}

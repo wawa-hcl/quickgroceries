@@ -16,7 +16,7 @@ public class AddressEntityService {
 		return addressRepository.save(addressEntity);
 	}
 	
-	public Optional<AddressEntity> getCustomerAddress(int uidpk){
+	public Optional<AddressEntity> getCustomerAddress(long uidpk){
 		return addressRepository.findById(uidpk);
 		
 	}

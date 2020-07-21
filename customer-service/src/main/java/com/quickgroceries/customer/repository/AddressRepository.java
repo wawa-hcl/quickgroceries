@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.quickgroceries.customer.entity.AddressEntity;
 
 @Repository
-public interface AddressRepository extends CrudRepository<AddressEntity, Integer>{
+public interface AddressRepository extends CrudRepository<AddressEntity, Long>{
 
 }

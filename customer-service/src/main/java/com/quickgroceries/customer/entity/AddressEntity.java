@@ -7,31 +7,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 @Entity
 @Table(name = "taddress")
 public class AddressEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "uidpk_address")
-	private int uidpk;
+	private long uidpk;
 	
+	@NotNull
+	@Size(min=6,max=30, message="Addrss character must be greater than 6")
 	@Column(name = "StreetAddress")
 	private String streetAddress;
-	
+	@NotNull
+	@Size(min=4,max=30, message="Locality name character must be greater than 4")
 	@Column(name = "Locality")
 	private String locality;
-	
+	@NotNull
+	@Size(min=3,max=30, message="City name character must be greater than 3")
 	@Column(name = "City")
 	private String city;
-	
+	@NotNull
+	@Size(min=3,max=30, message="State name character must be greater than 3")
 	@Column(name = "State")
 	private String state;
-	
+	@NotNull
 	@Column(name = "Country")
 	private String country;
-	
+	@Digits(fraction = 0, integer = 4) 
 	@Column(name = "Pincode")
 	private int pincode;
 	
@@ -40,7 +48,7 @@ public class AddressEntity implements Serializable {
 
 	}
 
-	public AddressEntity(int uidpk, String streetAddress, String locality, String city, String state, String country,
+	public AddressEntity(long uidpk, String streetAddress, String locality, String city, String state, String country,
 			int pincode) {
 		super();
 		this.uidpk = uidpk;
@@ -52,11 +60,11 @@ public class AddressEntity implements Serializable {
 		this.pincode = pincode;
 	}
 
-	public int getUidpk() {
+	public long getUidpk() {
 		return uidpk;
 	}
 
-	public void setUidpk(int uidpk) {
+	public void setUidpk(long uidpk) {
 		this.uidpk = uidpk;
 	}
 

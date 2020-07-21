@@ -1,6 +1,8 @@
 package com.quickgroceries.customer.service;
 import java.util.Optional;
 
+import com.quickgroceries.customer.entityDto.CustomerRequestDto;
+import com.quickgroceries.customer.entityDto.CustomerResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +21,43 @@ public class CustomerEntityService {
 	AddressRepository addressRepository;
 	AddressEntity addressEntity;
 	
-	 public CustomerEntity addCustomerDetails(CustomerEntity customerEntity) 
+	 public long addCustomerDetails(CustomerRequestDto customerRequestDto)
 	 {
-		 customerEntity.setCustomerAddress(customerEntity.getCustomerAddress()); 
-		 System.out.println("check address : "+customerEntity.getCustomerAddress());
-		   return customerRepository.save(customerEntity);
-		}
+	        CustomerEntity customerEntity = new CustomerEntity();
+		 customerEntity.setFirstName(customerRequestDto.getFirstName());
+		 customerEntity.setLastName(customerRequestDto.getLastName());
+			customerEntity.setCustomerAddress(customerEntity.getCustomerAddress());
+			customerEntity.setPhoneNumber(customerRequestDto.getPhoneNumber());
+			customerEntity.setCustomerPreference(customerRequestDto.getCustomerPreference());
+			customerEntity.setEmail(customerRequestDto.getEmail());
+			customerEntity.setUserName(customerRequestDto.getUserName());
+			customerEntity.setCustomerAddress(customerRequestDto.getCustomerAddress());
+		 customerEntity.setCustomerAddress(customerEntity.getCustomerAddress());
 
-	 
- public Optional<CustomerEntity> getCustomerDetails(int uidpk) throws ResourceNotFoundException{
-	 return customerRepository.findById(uidpk);	 
+		 customerRepository.save(customerEntity);
+
+		   return customerEntity.getUidpk();
+		}
+ 
+ public CustomerResponseDto getCustomerDetails(long uidpk) throws ResourceNotFoundException{
+	 CustomerResponseDto customerResponseDto = new CustomerResponseDto();
+	 Optional<CustomerEntity> customerDetail = customerRepository.findById(uidpk);
+	 if (customerDetail.isPresent()){
+	 	CustomerEntity customer = customerDetail.get();
+		 customerResponseDto.setFirstName(customer.getFirstName());
+		 customerResponseDto.setLastName(customer.getLastName());
+		 customerResponseDto.setPhoneNumber(customer.getPhoneNumber());
+		 customerResponseDto.setCustomerPreference(customer.getCustomerPreference());
+		 customerResponseDto.setEmail(customer.getEmail());
+		 customerResponseDto.setUserName(customer.getUserName());
+		 customerResponseDto.setCustomerAddress(customer.getCustomerAddress());
+		 return customerResponseDto;
+	 }
+	 throw new ResourceNotFoundException("CustomerId is invalid "+ uidpk);
+
  }
  
-    public CustomerEntity updateCustomerDetails(int uidpk,CustomerEntity customerEntity) throws ResourceNotFoundException {
+    public CustomerEntity updateCustomerDetails(long uidpk,CustomerEntity customerEntity) throws ResourceNotFoundException {
     	customerRepository.findById(uidpk);
     	customerEntity.setFirstName(customerEntity.getFirstName());
     	customerEntity.setLastName(customerEntity.getLastName());

@@ -27,9 +27,9 @@ public class CustomerEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "UIDPK")
-	private int uidpk;
+	private long uidpk;
 	
 	@Column(name = "FirstName")
 	@NotNull
@@ -58,7 +58,7 @@ public class CustomerEntity implements Serializable {
 	private String userName;
 	
 	
-	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
 	@JoinColumn (name = "uidpk_address")
 
 	private AddressEntity customerAddress;
@@ -89,10 +89,10 @@ public class CustomerEntity implements Serializable {
 		this.customerAddress = customerAddress;
 	}
 	
-	public int getUidpk() {
+	public long getUidpk() {
 		return uidpk;
 	}
-	public void setUidpk(int uidpk) {
+	public void setUidpk(long uidpk) {
 		this.uidpk = uidpk;
 	}
 	public String getFirstName() {

@@ -1,33 +1,50 @@
 package com.quickgroceries.wallet.exceptions;
 
-public class ErrorResponse extends RuntimeException {
+import org.springframework.http.HttpStatus;
 
-	private static final long serialVersionUID = 1L;
-	private String exceptionMsg;
-    private int httpCode;
 
-    public ErrorResponse(){
+public class ErrorResponse {
+	
+	private HttpStatus status;
+	private String message;
+	private String detail;
+	
+	public ErrorResponse() {
+		
+	}
 
-    }
+	public ErrorResponse(HttpStatus notFound, String message, String detail) {
+		super();
+		this.status = notFound;
+		this.message = message;
+		this.detail = detail;
+	}
 
-    public ErrorResponse(String exceptionMsg, int httpCode) {
-        this.exceptionMsg = exceptionMsg;
-        this.httpCode = httpCode;
-    }
 
-    public String getExceptionMsg() {
-        return exceptionMsg;
-    }
 
-    public void setExceptionMsg(String exceptionMsg) {
-        this.exceptionMsg = exceptionMsg;
-    }
+	public HttpStatus getHttpCode() {
+		return status;
+	}
 
-    public int getHttpCode() {
-        return httpCode;
-    }
+	public void setHttpCode(HttpStatus httpCode) {
+		this.status = httpCode;
+	}
 
-    public void setHttpCode(int httpCode) {
-        this.httpCode = httpCode;
-    }
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+    
+	
 }
