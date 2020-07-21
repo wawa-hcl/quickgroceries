@@ -1,10 +1,10 @@
 package com.quickgroceries.cart.exception;
 
-public class CartItemNotFoundException extends RuntimeException {
+public class CartNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public CartItemNotFoundException(String s) {
+	public CartNotFoundException(String s) {
 		super(s);
 	}
 }

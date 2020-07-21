@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quickgroceries.cart.entity.State;
+import com.quickgroceries.cart.model.CartIdDto;
 import com.quickgroceries.cart.model.RequestDto;
 import com.quickgroceries.cart.model.ResponseDto;
 import com.quickgroceries.cart.model.StateCartResponseDto;
@@ -36,7 +37,7 @@ public class CartController {
 		if (i == 1) {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
 	@PutMapping("/cart/customer/{customerID}")
@@ -78,9 +79,9 @@ public class CartController {
 	}
 
 	@PutMapping("/cart")
-	public ResponseEntity<HttpStatus> updateCartState(@RequestHeader(name = "STATE", required = true) State stateValue,
-			@RequestBody long[] cartIds) {
-		int i = cartService.updateCartStateByIds(stateValue, cartIds);
+	public ResponseEntity<HttpStatus> updateCartState(@RequestHeader(value = "STATE", required = true) State stateValue,
+			@RequestBody CartIdDto cartIdDto) {
+		int i = cartService.updateCartStateByIds(stateValue, cartIdDto);
 
 		if (i == 1) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

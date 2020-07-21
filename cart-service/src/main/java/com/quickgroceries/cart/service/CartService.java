@@ -3,6 +3,7 @@ package com.quickgroceries.cart.service;
 import java.util.List;
 
 import com.quickgroceries.cart.entity.State;
+import com.quickgroceries.cart.model.CartIdDto;
 import com.quickgroceries.cart.model.RequestDto;
 import com.quickgroceries.cart.model.ResponseDto;
 import com.quickgroceries.cart.model.StateCartResponseDto;
@@ -19,6 +20,6 @@ public interface CartService {
 
 	List<StateCartResponseDto> getCartByState(State stateValue);
 
-	int updateCartStateByIds(State stateValue, long[] cartIds);
+	int updateCartStateByIds(State stateValue, CartIdDto cartIdDto);
 
 }

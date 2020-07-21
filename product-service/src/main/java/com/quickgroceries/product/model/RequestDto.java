@@ -9,6 +9,12 @@ public class RequestDto {
 	private String productShortName;
 	
 	public ListPrice listprice;
+	
+	
+
+	public RequestDto() {
+		super();
+	}
 
 	public RequestDto(String productName, String productDescription, String productShortName, ListPrice listprice) {
 		super();
