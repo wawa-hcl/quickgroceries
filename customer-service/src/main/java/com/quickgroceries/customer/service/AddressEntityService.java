@@ -6,20 +6,10 @@ import com.quickgroceries.customer.entity.AddressEntity;
 import com.quickgroceries.customer.repository.AddressRepository;
 
 @Service
-public class AddressEntityService {
-    
-	@Autowired
-	AddressRepository addressRepository;
-	
-	public AddressEntity addCustomerAddress(AddressEntity addressEntity) {
-		
-		return addressRepository.save(addressEntity);
-	}
-	
-	public Optional<AddressEntity> getCustomerAddress(long uidpk){
-		return addressRepository.findById(uidpk);
-		
-	}
-	
+public interface AddressEntityService {
+
+	public AddressEntity addCustomerAddress(AddressEntity addressEntity);
+	public Optional<AddressEntity> getCustomerAddress(long uidpk);
+
 	
 }

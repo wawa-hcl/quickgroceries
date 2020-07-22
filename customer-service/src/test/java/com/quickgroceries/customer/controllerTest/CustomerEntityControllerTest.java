@@ -53,7 +53,7 @@ public class CustomerEntityControllerTest {
 			.build();*/
 	}
 	
-	@Test
+	/*@Test
 	public void testPostCustomer() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(customerEntityController)
 				.build();
@@ -71,9 +71,9 @@ public class CustomerEntityControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		        .andExpect(status().isCreated());
 		verify(customerEntityService.addCustomerDetails(customerRequestDto));
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void testGetCustomer() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(customerEntityService)
 				.build();
@@ -101,7 +101,7 @@ public class CustomerEntityControllerTest {
 
 		System.out.println("hello");
 
-	}
+	}*/
 
 
 
