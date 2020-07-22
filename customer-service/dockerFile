@@ -1,5 +1,5 @@
 FROM openjdk:8
 RUN mkdir/quickgroceries
 EXPOSE 9000
-COPY customer-service/target/cart-service-0.0.1-SNAPSHOT.jar/quickgroceries-jar/customer-service.jar
+COPY customer-service/target/customer-service-0.0.1-SNAPSHOT.jar/quickgroceries-jar/customer-service.jar
 CMD java -jar /work/customer-service.jar
