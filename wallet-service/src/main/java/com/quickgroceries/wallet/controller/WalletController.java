@@ -1,39 +1,36 @@
 package com.quickgroceries.wallet.controller;
 
-import java.io.Serializable;
-import java.util.Optional;
-
-import com.quickgroceries.wallet.exceptions.WalletExceptionalHandler;
+import com.quickgroceries.wallet.entity.WalletEntity;
+import com.quickgroceries.wallet.entityDto.WalletRequestDto;
+import com.quickgroceries.wallet.entityDto.WalletResponseDto;
+import com.quickgroceries.wallet.exceptions.ResourceNotFoundException;
 import com.quickgroceries.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.quickgroceries.wallet.entity.WalletEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class WalletController implements Serializable {
-    
-	private static final long serialVersionUID = 1L;
-	@Autowired
+public class WalletController {
+
+    @Autowired
     WalletService walletService;
-    
-    @PostMapping("/wallet/customer")
-    public ResponseEntity<Object> addWallet(@RequestBody WalletEntity walletEntity) {
-    	
-    	WalletEntity wallet = walletService.addWallet(walletEntity);
-    	System.out.println("check after add"+walletEntity);
-    	return new ResponseEntity<>(wallet,HttpStatus.CREATED);	
+
+    @PostMapping(value = "/customer/wallet/{customerUid}",headers = {
+            "content-type=application/json" })
+    public ResponseEntity<Object> addWallet(@PathVariable ("customerUid")
+                                                        long customerUid,@RequestBody WalletRequestDto walletRequestDto ) throws ResourceNotFoundException {
+        WalletRequestDto addWallet = walletService.addWallet(customerUid,walletRequestDto);
+        return new ResponseEntity<>(addWallet, HttpStatus.CREATED);
     }
-    
-    /*@GetMapping("/customer/wallet/{uidpk}")
-    public ResponseEntity<Object> getWalletById(@PathVariable("uidpk") long uidpk) {
-    	 Optional<WalletEntity> wallet = walletService.getWalletById(uidpk) ;
-    	return new ResponseEntity<>(wallet,HttpStatus.OK);
-    }*/
+    @GetMapping(value = "/customer/wallet/{customerUid}")
+    public ResponseEntity<Object> findByUid(@PathVariable("customerUid") long customerUid) throws ResourceNotFoundException{
+        return new ResponseEntity<>(walletService.getWalletAmount(customerUid),HttpStatus.OK);
+    }
+    @PutMapping("/wallet/customers/{customerUid}")
+    public ResponseEntity<Object> updateWallet(@PathVariable ("customerUid") long customerUid){
+        WalletResponseDto updatedWallet = walletService.updateWallet(customerUid);
+        return new ResponseEntity<>(updatedWallet,HttpStatus.CREATED);
+    }
+
 }
