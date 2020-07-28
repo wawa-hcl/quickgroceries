@@ -1,5 +1,0 @@
-FROM openjdk:11
-RUN mkdir/quickgroceries
-EXPOSE 7634
-COPY delivery-service/target/delivery-service-0.0.1-SNAPSHOT.jar/quickgroceries/delivery-service.jar
-CMD java -jar /quickgroceries/delivery-service.jar
