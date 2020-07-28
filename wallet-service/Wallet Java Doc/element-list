@@ -1,0 +1,9 @@
+com.quickgroceries.wallet
+com.quickgroceries.wallet.controller
+com.quickgroceries.wallet.controllerTest
+com.quickgroceries.wallet.entity
+com.quickgroceries.wallet.entityDto
+com.quickgroceries.wallet.exceptions
+com.quickgroceries.wallet.repository
+com.quickgroceries.wallet.service
+com.quickgroceries.wallet.serviceImpl

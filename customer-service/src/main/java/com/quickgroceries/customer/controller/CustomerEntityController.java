@@ -37,30 +37,29 @@ public class CustomerEntityController {
 
     @PostMapping(value = "/customers", produces = "application/json")
     public ResponseEntity<Object> addCustomerDetails(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
-        logger.info("add customerDetails method is Initializing"+customerRequestDto);
+        logger.info("add customerDetails method is Initializing");
         long uidpk = customerEntityService.addCustomerDetails(customerRequestDto);
         return new ResponseEntity<>("customer Id : " + uidpk, HttpStatus.CREATED);
     }
 
     @GetMapping("/customers/{uidpk}")
-    public ResponseEntity<Object> getCustomerDetailById(@Valid @PathVariable long uidpk) throws ResourceNotFoundException {
-        logger.info("add getCustomerDetailById method is Initializing"+uidpk);
+    public ResponseEntity<CustomerResponseDto> getCustomerDetailById(@Valid @PathVariable long uidpk) throws ResourceNotFoundException {
+        logger.info(" getCustomerDetailById method is Initializing");
         CustomerResponseDto getCustomer = customerEntityService.getCustomerDetails(uidpk);
-
         return new ResponseEntity<>(getCustomer, HttpStatus.OK);
     }
 
     @PutMapping("/customers/{uidpk}")
-    public ResponseEntity<Object> updateCustomerDetail
+    public ResponseEntity<CustomerEntity> updateCustomerDetail
             (@PathVariable(value = "uidpk") long uidpk, @Valid @RequestBody CustomerEntity customerEntity) throws ResourceNotFoundException {
-        logger.info("add updateCustomerDetail method is Initializing"+customerEntity);
+        logger.info(" updateCustomerDetail method is Initializing");
         CustomerEntity updatedCustomerDetails = customerEntityService.updateCustomerDetails(uidpk, customerEntity);
         return new ResponseEntity<>(updatedCustomerDetails, HttpStatus.CREATED);
     }
 
     @GetMapping("/customers/wallet/{customerUid}")
     public ResponseEntity<Object> getCustomerWalletDetail(@PathVariable(value = "customerUid") long customerUid) throws ResourceNotFoundException {
-        logger.info("add getCustomerWalletDetail method is Initializing"+customerUid);
+        logger.info(" getCustomerWalletDetail method is Initializing");
         ResponseEntity<Object> wallet = callWalletService.findByUid(customerUid);
         CustomerResponseDto customerDetail = customerEntityService.getCustomerDetails(customerUid);
         List<Object> customerlist = Arrays.asList(customerDetail, wallet.getBody());
@@ -75,7 +74,7 @@ public class CustomerEntityController {
     }
     @GetMapping("/wallet/customer/{customerUid}")
     public ResponseEntity<Object>updatedWallet (@PathVariable("customerUid") long customerUid,@RequestBody CustomerEntity customerEntity) throws ResourceNotFoundException {
-        logger.info("add addWallet method is Initializing"+ customerEntity);
+        logger.info("add addWallet method is Initializing");
         ResponseEntity<Object> wallet = callWalletService.updateWallet(customerUid);
         return new ResponseEntity<>(wallet.getBody(),HttpStatus.OK);
     }

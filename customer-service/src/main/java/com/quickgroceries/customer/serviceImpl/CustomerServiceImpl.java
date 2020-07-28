@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerEntityService {
 
     public long addCustomerDetails(CustomerRequestDto customerRequestDto)
     {
-        logger.info("calling addCustomerDetails in CustomerServiceImpl "+customerRequestDto);
+        logger.info("calling addCustomerDetails in CustomerServiceImpl ");
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setFirstName(customerRequestDto.getFirstName());
         customerEntity.setLastName(customerRequestDto.getLastName());
@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerEntityService {
         customerEntity.setCustomerAddress(customerEntity.getCustomerAddress());
 
         customerRepository.save(customerEntity);
-        logger.info("customerRequestDto saved in DB "+customerEntity);
+        logger.info("customerRequestDto saved in DB ");
         return customerEntity.getUidpk();
     }
 
@@ -60,8 +60,9 @@ public class CustomerServiceImpl implements CustomerEntityService {
             customerResponseDto.setCustomerAddress(customer.getCustomerAddress());
             return customerResponseDto;
         }
-        throw new ResourceNotFoundException("CustomerId is invalid "+ uidpk);
-
+        else {
+        throw new ResourceNotFoundException("CustomerId is invalid ");
+        }
     }
 
     public CustomerEntity updateCustomerDetails(long uidpk,CustomerEntity customerEntity) throws ResourceNotFoundException {
@@ -76,6 +77,7 @@ public class CustomerServiceImpl implements CustomerEntityService {
         customerEntity.setCustomerAddress(customerEntity.getCustomerAddress());
         return customerEntity;
     }
+
 
 
 }
