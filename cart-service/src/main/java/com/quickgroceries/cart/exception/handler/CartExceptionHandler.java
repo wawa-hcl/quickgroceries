@@ -11,9 +11,19 @@ import org.springframework.web.context.request.WebRequest;
 import com.quickgroceries.cart.exception.CartNotFoundException;
 import com.quickgroceries.cart.model.ErrorDto;
 
+/**
+ * The Class CartExceptionHandler.
+ */
 @ControllerAdvice
 public class CartExceptionHandler {
 
+	/**
+	 * Exception.
+	 *
+	 * @param ex      the ex
+	 * @param request the request
+	 * @return the response entity
+	 */
 	@ExceptionHandler(value = CartNotFoundException.class)
 	public ResponseEntity<ErrorDto> exception(CartNotFoundException ex, WebRequest request) {
 		ErrorDto errorDto = new ErrorDto(new Date(), ex.getMessage(), request.getDescription(false));

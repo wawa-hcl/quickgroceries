@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.quickgroceries.cart.entity.CartItem;
 
+/**
+ * The Interface CartItemRepository.
+ */
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 

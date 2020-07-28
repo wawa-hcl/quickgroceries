@@ -1,5 +1,12 @@
 package com.quickgroceries.cart.entity;
 
+/**
+ * The Enum State.
+ */
 public enum State {
-	OPEN, READY
+
+	/** The open. */
+	OPEN,
+	/** The ready. */
+	READY
 }
