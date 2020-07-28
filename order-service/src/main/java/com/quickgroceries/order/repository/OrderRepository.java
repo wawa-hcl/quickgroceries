@@ -1,9 +1,10 @@
 package com.quickgroceries.order.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 import com.quickgroceries.order.entity.Order;
 
-public interface OrderRepository extends MongoRepository < Order, String> {
-
+public interface OrderRepository extends MongoRepository < Order, String>, OrderRepositoryCustom {
+ 
 }

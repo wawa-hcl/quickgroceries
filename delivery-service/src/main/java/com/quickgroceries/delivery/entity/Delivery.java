@@ -10,6 +10,19 @@ public class Delivery {
 	@Id
 	private String deliveryId;
 	private Order deliveryDetails;
+	
+	
+	public Delivery() {
+		super();
+		
+	}
+	
+	public Delivery(String deliveryId, Order deliveryDetails) {
+		super();
+		this.deliveryId = deliveryId;
+		this.deliveryDetails = deliveryDetails;
+	}
+
 	public String getDeliveryId() {
 		return deliveryId;
 	}
@@ -21,6 +34,11 @@ public class Delivery {
 	}
 	public void setDeliveryDetails(Order deliveryDetails) {
 		this.deliveryDetails = deliveryDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "Delivery [deliveryId=" + deliveryId + ", deliveryDetails=" + deliveryDetails + "]";
 	}
 	
 	

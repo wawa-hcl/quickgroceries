@@ -2,11 +2,8 @@ package com.quickgroceries.order.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
-
 import com.quickgroceries.order.entity.Order;
 import com.quickgroceries.order.entity.State;
 import com.quickgroceries.order.exception.ResourceNotFoundException;
@@ -18,6 +15,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 	
+	
 	public Order createOrder(Order order) {
 	
 		return orderRepository.save(order);
@@ -25,9 +23,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	
-	 public List < Order > getAllOrder() {
+	 public List < Order > getAllOrder(State state) {
 		 
-	        return this.orderRepository.findAll();
+	        return this.orderRepository.findByState(state);
 	    }
 	 
 	 
@@ -43,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
    
    
    
-   public int updateOrder( OrderIdDto orderidDto,State state) {
+   public int updateOrderByIds( OrderIdDto orderidDto,State state) {
 	   String[] ids = orderidDto.getOrderIds();
 	   for (String i : ids) {
        Optional<Order> order = orderRepository.findById(i);

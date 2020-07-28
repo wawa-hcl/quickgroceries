@@ -1,9 +1,9 @@
 package com.quickgroceries.delivery.model;
 
 public enum State {
-	READYforFulfillement,
-	READYforDelivery,
-	Failed,
+	READYFORFULLFILLMENT,
+	READYFORDELIVERY,
+	FAILED,
 	OPEN,
     READY
 }
