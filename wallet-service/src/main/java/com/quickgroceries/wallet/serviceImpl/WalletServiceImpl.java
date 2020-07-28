@@ -3,10 +3,13 @@ import com.quickgroceries.wallet.entity.WalletEntity;
 import com.quickgroceries.wallet.entityDto.CartResponseDto;
 import com.quickgroceries.wallet.entityDto.WalletRequestDto;
 import com.quickgroceries.wallet.entityDto.WalletResponseDto;
+import com.quickgroceries.wallet.exceptions.ResourceNotFoundException;
 import com.quickgroceries.wallet.repository.WalletRepository;
 import com.quickgroceries.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class WalletServiceImpl implements WalletService {
@@ -20,15 +23,25 @@ public class WalletServiceImpl implements WalletService {
         walletEntity.setCustomerUid(customerUid);
         double balance = walletEntity.getAmount();
         balance = balance + walletRequestDto.getAmount();
-        walletEntity.setAmount(walletRequestDto.getAmount());
+        walletEntity.setAmount(balance);
         walletEntity.setCurrency(walletRequestDto.getCurrency());
         walletRepository.save(walletEntity);
         return walletRequestDto;
     }
 
-    public WalletEntity getWalletAmount(long customerUid) {
+    public WalletResponseDto getWalletAmount(long customerUid) {
+
         WalletResponseDto walletResponseDto = new WalletResponseDto();
-        return walletRepository.findByCustomerUid(customerUid);
+        WalletEntity walletEntity = new WalletEntity();
+        Optional<WalletEntity> wallet = walletRepository.findById(customerUid);
+        if(wallet.isPresent()){
+            wallet.get();
+            walletResponseDto.setAmount(walletEntity.getAmount());
+            walletResponseDto.setCurrency(walletEntity.getCurrency());
+        }
+
+
+        return walletResponseDto;
     }
 
     public WalletResponseDto updateWallet(long customerUid) {

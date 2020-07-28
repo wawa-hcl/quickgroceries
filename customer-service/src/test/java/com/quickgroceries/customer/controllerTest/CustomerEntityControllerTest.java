@@ -1,79 +1,66 @@
+/*
 package com.quickgroceries.customer.controllerTest;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.quickgroceries.customer.controller.CustomerEntityController;
 import com.quickgroceries.customer.entity.CustomerEntity;
-import com.quickgroceries.customer.entityDto.CustomerRequestDto;
 import com.quickgroceries.customer.entityDto.CustomerResponseDto;
-import org.hamcrest.Matchers;
+import com.quickgroceries.customer.service.CustomerEntityService;
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.quickgroceries.customer.controller.CustomerEntityController;
-import com.quickgroceries.customer.service.CustomerEntityService;
-@ExtendWith(MockitoExtension.class)
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(value = CustomerEntityController.class)
 public class CustomerEntityControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Mock
-    private CustomerEntityService customerEntityService;
-	@Mock
-	CustomerResponseDto customerResponseDto;
-	@Mock
-	CustomerEntity customerEntity;
-	@Mock
-	CustomerRequestDto customerRequestDto;
+	@MockBean
+	private CustomerEntityService customerEntityService;
+	private ObjectMapper objectMapper = new ObjectMapper();
 	@InjectMocks
-	private CustomerEntityController customerEntityController;
+	CustomerEntityController customerEntityController;
 
 	@Before
 	public void setUp() throws Exception {
-  	/*mockMvc = MockMvcBuilders.standaloneSetup(customerEntityService)
-			.build();*/
-	}
-	
-	/*@Test
-	public void testPostCustomer() throws Exception {
-		mockMvc = MockMvcBuilders.standaloneSetup(customerEntityController)
-				.build();
-		String dummyCustomerDetail = "{\n" +
-                "  \"uidpk\": \"\",\n" +
-                "  \"firstName\": \"Chinmay\"\n" +
-                "  \"lastName\": \"Shrivastava\"\n" +
-                "  \"phoneNumber\": \"909814441\"\n" +
-                "  \"customerPreference\": \"veg\"\n" +
-                "  \"email\": \"chinmay@hcl\"\n" +
-                "  \"userName\": \"chinmay\"\n" +
-                "}";
-   when(customerEntityService.addCustomerDetails(customerRequestDto)).thenReturn(Mockito.anyLong());
-		mockMvc.perform(post("/customers").content(dummyCustomerDetail)
-				.contentType(MediaType.APPLICATION_JSON))
-		        .andExpect(status().isCreated());
-		verify(customerEntityService.addCustomerDetails(customerRequestDto));
-	}*/
+  	*/
+/*mockMvc = MockMvcBuilders.standaloneSetup(customerEntityService)
+			.build();*//*
 
-	/*@Test
+	}
+   @Test
+	public void testGetCustomerDetailById() throws Exception {
+
+		CustomerResponseDto customerResponseDto = new CustomerResponseDto();
+		CustomerEntity customerEntity = new CustomerEntity();
+		customerEntity.setUidpk(9);
+		customerResponseDto.setFirstName("Chinmay");
+		customerResponseDto.setLastName("Shrivastava");
+		customerResponseDto.setEmail("chinmay@hcl.com");
+		customerResponseDto.setCustomerPreference("veg");
+		customerResponseDto.setPhoneNumber(909814432);
+		customerResponseDto.setUserName("chinmay");
+		when(customerEntityService.getCustomerDetails(anyLong())).thenReturn(customerResponseDto);
+		mockMvc.perform(get("/customers/9")).andExpect(status().isOk());
+
+
+
+
+	*/
+/*@Test
 	public void testGetCustomer() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(customerEntityService)
 				.build();
@@ -86,9 +73,11 @@ public class CustomerEntityControllerTest {
 //		mockResponse.setUserName("chinmay");
 
 		/*Mockito.when(customerEntityController.getCustomerDetailById(Mockito.anyLong()))
-		.thenReturn(mockResponse);*/
+		.thenReturn(mockResponse);*//*
 
-		mockMvc.perform(get("//customers/1")
+
+		*/
+/*mockMvc.perform(get("//customers/1")
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.firstName", Matchers.is("Chinmay")))
@@ -101,20 +90,16 @@ public class CustomerEntityControllerTest {
 
 		System.out.println("hello");
 
-	}*/
+	}*//*
 
 
 
-
-
-
-
-
+	}
 }
-
 	
 	
 	
 	
 
 
+*/

@@ -12,4 +12,7 @@ public class ResourceNotFoundException extends Exception {
 	    super(message);
 	  }
 
+    public ResourceNotFoundException() {
+
+    }
 }
