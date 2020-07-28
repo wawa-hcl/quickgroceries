@@ -11,14 +11,23 @@ import org.springframework.web.context.request.WebRequest;
 import com.quickgroceries.product.exception.ProductNotFoundException;
 import com.quickgroceries.product.model.ErrorDto;
 
+/**
+ * The Class ProductExceptionHandler.
+ */
 @ControllerAdvice
 public class ProductExceptionHandler {
-	
-	@ExceptionHandler(value=ProductNotFoundException.class)
-	public ResponseEntity<ErrorDto> exception(ProductNotFoundException ex, WebRequest request)
-	{
-		ErrorDto erroeDto = new ErrorDto(new Date(), ex.getMessage(),request.getDescription(false));
-		return new ResponseEntity<>(erroeDto,HttpStatus.NOT_FOUND);
+
+	/**
+	 * Exception.
+	 *
+	 * @param ex      the ex
+	 * @param request the request
+	 * @return the response entity
+	 */
+	@ExceptionHandler(value = ProductNotFoundException.class)
+	public ResponseEntity<ErrorDto> exception(ProductNotFoundException ex, WebRequest request) {
+		ErrorDto errorDto = new ErrorDto(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
 	}
 
 }

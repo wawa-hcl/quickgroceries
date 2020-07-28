@@ -1,10 +1,19 @@
 package com.quickgroceries.product.exception;
 
-public class ProductNotFoundException extends RuntimeException{
+/**
+ * The Class ProductNotFoundException.
+ */
+public class ProductNotFoundException extends RuntimeException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public ProductNotFoundException(String s){
+	/**
+	 * Instantiates a new product not found exception.
+	 *
+	 * @param s the s
+	 */
+	public ProductNotFoundException(String s) {
 		super(s);
 	}
 }
