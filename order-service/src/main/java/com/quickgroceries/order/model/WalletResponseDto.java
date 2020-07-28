@@ -1,6 +1,6 @@
 package com.quickgroceries.order.model;
 
-public class WalletDto {
+public class WalletResponseDto {
 
 	private double amount;
      private String currency;

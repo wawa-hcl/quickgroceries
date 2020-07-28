@@ -1,6 +1,6 @@
 package com.quickgroceries.order.model;
 
-import java.util.List;
+
 
 public class CustomerResponseDto {
 	private String firstname;
@@ -9,7 +9,8 @@ public class CustomerResponseDto {
 	private String email;
 	private String username;
 	private AddressDto address;
-	private WalletDto walletdetails;
+	private WalletResponseDto walletDetails;
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -46,11 +47,11 @@ public class CustomerResponseDto {
 	public void setAddress(AddressDto address) {
 		this.address = address;
 	}
-	public WalletDto getWalletdetails() {
-		return walletdetails;
+	public WalletResponseDto getWalletDetails() {
+		return walletDetails;
 	}
-	public void setWalletdetails(WalletDto walletdetails) {
-		this.walletdetails = walletdetails;
+	public void setWalletDetails(WalletResponseDto walletDetails) {
+		this.walletDetails = walletDetails;
 	}
 	
 }

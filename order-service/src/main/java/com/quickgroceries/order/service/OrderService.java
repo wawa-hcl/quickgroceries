@@ -9,7 +9,7 @@ import com.quickgroceries.order.model.OrderIdDto;
 public interface OrderService {
  Order createOrder(Order order);
  Order getOrderById(String orderId);
- List < Order > getAllOrder();
-int updateOrder(OrderIdDto orderidDto,State state);
+ List < Order > getAllOrder(State state);
+int updateOrderByIds(OrderIdDto orderidDto,State state);
 
 }
